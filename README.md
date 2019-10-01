@@ -1,0 +1,2 @@
+# vagrant_workstation
+Vagrantを使った作業空間をいい感じにしたい
