@@ -1,0 +1,29 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+require 'json'
+
+# get metadata
+json= 'metadata.json'
+applyRecipe= ["#{ENV['RECIPEPATH']}/sommelier.rb"]
+dataOf= open(json) do |io|
+          JSON.load(io)
+        end
+
+Vagrant.configure(2) do |config|
+  dataOf[:name].each do |vm|
+    config.vm.define "#{vm}" do |o|
+      o.vm.box= dataOf[vm][:box]
+      o.vm.hostname= dataOf[vm][:hostname]
+      o.vm.network :private_network, ip: dataOf[vm][:ip]
+      dataOf[vm][:recipe].each do |recipe|
+        applyRecipe.push(ENV['RECIPEPATH'] + "/cookbooks/" + dataOf[vm][:recipe])
+      end if dataOf[vm][:recipe] != nil
+      o.vm.provision :itamae do |itamae|
+        itamae.sudo= true
+        itamae.shell= '/bin/sh'
+        itamae.json= json
+        itamae.recipes= applyRecipe
+      end
+    end
+  end
+end

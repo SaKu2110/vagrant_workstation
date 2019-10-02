@@ -1,0 +1,10 @@
+# os trash file
+.DS_Store
+.keep
+
+# vagrant trash folder
+workplace
+.vagrant
+
+# ubuntu log file
+ubuntu-bionic-18.04-cloudimg-console.log

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp $RECIPEPATH/config/metadata.template.json ./metadata.json
+cp $RECIPEPATH/config/Vagrantfile.template ./Vagrantfile
